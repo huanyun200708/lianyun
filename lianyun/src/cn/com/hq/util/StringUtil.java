@@ -2,7 +2,10 @@ package cn.com.hq.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -840,6 +843,17 @@ public final class StringUtil
     public static boolean validateIdsForDB(List<String> ids){
     	
     	return true;
+    }
+    
+    public static String changeDateFormat(Date date, String formatStr){
+        //format的格式可以任意   
+        DateFormat sdf = new SimpleDateFormat(formatStr);   
+        try {   
+            return sdf.format(date);
+        } catch (Exception e) {   
+            e.printStackTrace();   
+        }
+		return null;
     }
     
     /**

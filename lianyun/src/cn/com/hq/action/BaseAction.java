@@ -39,7 +39,9 @@ public class BaseAction extends ActionSupport {
 	}
 	
 	public HttpServletResponse getResponse() {
-		return ServletActionContext.getResponse();
+		HttpServletResponse res = ServletActionContext.getResponse();
+		res.setContentType("text/html;charset=utf-8");
+		return res;
 	}
 	
 	public HttpServletRequest getRequest() {

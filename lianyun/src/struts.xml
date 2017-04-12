@@ -17,18 +17,21 @@
 			<result name="input">/login.jsp</result>
 			<result name="success">page/login.jsp</result>
 		</action>
-		<action name="*_login" class="cn.com.hq.action.UserLoginAction" method="{1}">
+		<action name="onboard" class="cn.com.hq.action.OnboardAction">
+			<!-- 定义逻辑视图和物理资源之间的映射 -->
+			<result name="input">/login.jsp</result>
+			<result name="success">page/onbaord.jsp</result>
 		</action>
-			<action name="secureDataTrans" class="cn.com.hq.action.SecureDataTransAction">
-			<result name="success">/page/secureDataTrans.jsp</result>
+		<action name="*_login" class="cn.com.hq.action.UserLoginAction"
+			method="{1}">
 		</action>
-		<action name="*_secureDataTrans" class="cn.com.hq.action.SecureDataTransAction" 
-		method="{1}">
+		<action name="*_onboard" class="cn.com.hq.action.OnboardAction"
+			method="{1}">
 		</action>
 	</package>
 	<package name="struts2" namespace="/page" extends="struts-default">
-		<action name="*_fileUpload" class="cn.com.hq.action.FileUploadAction" 
-		method="{1}">
+		<action name="*_fileUpload" class="cn.com.hq.action.FileUploadAction"
+			method="{1}">
 		</action>
 	</package>
 </struts>
