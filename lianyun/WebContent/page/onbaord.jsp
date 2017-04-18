@@ -35,9 +35,9 @@
 	</script>
 </head>
 
-<body >
-	<div style="margin:20px 0;"></div>
-	<div class="easyui-panel" title="基本信息" style="width:100%;max-width:400px;padding:30px 60px;">
+<body style="text-align: center;width:100%;height:100%;">
+	<div style="text-align: center;margin:0 auto">
+	<div class="easyui-panel" title="基本信息" style="text-align:center;margin:0 auto;width:100%;max-width:400px;padding:30px 60px;">
 		<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
 			<div style="margin-bottom:20px">
 				<input class="easyui-textbox" name="accountname" id='accountname' style="width:100%" data-options="label:'姓名:',required:true">
@@ -77,7 +77,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">修改条数</a>
 	</div>
-	
+	</div>
 	<script type="text/javascript">
 		(function($){
 			function getCacheContainer(t){
