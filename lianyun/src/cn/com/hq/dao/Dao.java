@@ -15,19 +15,14 @@ public class Dao {
 		Connection connection = null;
         try {
             /*****填写数据库相关信息(请查找数据库详情页)*****/
-            String databaseName = "iyGuNBWBMhcCdcfzHbfq";
-            String host = "sqld.duapp.com";
-            String port = "4050";
-            String username = "09139cbfc993430eb70a2b855f340ca2"; //用户AK
-            String password = "b25ffe99328a45e990547ae84746ae07"; //用户SK
-            String driverName = "com.mysql.jdbc.Driver";
-            String dbUrl = "jdbc:mysql://";
-            String serverName = host + ":" + port + "/";
-            String connName = dbUrl + serverName + databaseName;
+        	 String username = PropertiesUtils.getPropertyValueByKey("username");
+             String password = PropertiesUtils.getPropertyValueByKey("password");
+             String driverName = PropertiesUtils.getPropertyValueByKey("driverName");
+             String dbUrl = PropertiesUtils.getPropertyValueByKey("dbUrl");
 
             /******接着连接并选择数据库名为databaseName的服务器******/
             Class.forName(driverName);
-            connection = DriverManager.getConnection(connName, username,
+            connection = DriverManager.getConnection(dbUrl, username,
                     password);
             System.out.println("---CommonConnection DB success!!!");
             return connection;

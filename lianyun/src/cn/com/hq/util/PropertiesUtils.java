@@ -11,7 +11,7 @@ public class PropertiesUtils {
 		String value = "";
 	    try{
 	    	String path = PropertiesUtils.class.getClassLoader().getResource("").getPath().substring(1);
-	        InputStream in = new BufferedInputStream (new FileInputStream(path + "property.properties"));
+	        InputStream in = new BufferedInputStream (new FileInputStream("/"+path + "property.properties"));
 	        prop.load(in);     ///加载属性列表
 	        value = prop.getProperty(key);
 	        //System.out.println(key+":"+prop.getProperty(key));
