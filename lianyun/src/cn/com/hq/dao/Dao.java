@@ -43,19 +43,14 @@ public class Dao {
         try {
         	Connection connection = null;
             /*****填写数据库相关信息(请查找数据库详情页)*****/
-            String databaseName = "huangqiDB";
-            String host = "localhost";
-            String port = "3306";
-            String username = "root"; //用户AK
-            String password = "huangqiDB"; //用户SK
-            String driverName = "com.mysql.jdbc.Driver";
-            String dbUrl = "jdbc:mysql://";
-            String serverName = host + ":" + port + "/";
-            String connName = dbUrl + serverName + databaseName;
+            String username = PropertiesUtils.getPropertyValueByKey("username");
+            String password = PropertiesUtils.getPropertyValueByKey("password");
+            String driverName = PropertiesUtils.getPropertyValueByKey("driverName");
+            String dbUrl = PropertiesUtils.getPropertyValueByKey("dbUrl");
 
             /******接着连接并选择数据库名为databaseName的服务器******/
             Class.forName(driverName);
-            connection = DriverManager.getConnection(connName, username,
+            connection = DriverManager.getConnection(dbUrl, username,
                     password);
             System.out.println("---LocalConnection DB success!!!");
             dbFlag = "Local";

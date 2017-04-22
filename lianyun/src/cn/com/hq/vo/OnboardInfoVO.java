@@ -8,6 +8,7 @@ public class OnboardInfoVO {
 	}
 
 	private String id;
+	private String accountid;
 	private String accountname;
 	private String appointtime;
 	private String onboardtime;
@@ -61,11 +62,7 @@ public class OnboardInfoVO {
 	}
 
 	public void setAppointstatus(String appointstatus) {
-		if("0".equals(appointstatus)|| appointstatus==null){
-			this.appointstatus = "预约中...";
-		}else{
-			this.appointstatus = "预约成功";
-		}
+		this.appointstatus = appointstatus;
 	}
 
 	public String getOnboardstatus() {
@@ -73,11 +70,15 @@ public class OnboardInfoVO {
 	}
 
 	public void setOnboardstatus(String onboardstatus) {
-		if("0".equals(onboardstatus)  || onboardstatus==null){
-			this.onboardstatus = "未上车";
-		}else{
-			this.onboardstatus = "已上车";
-		}
+		this.onboardstatus =onboardstatus;
+	}
+
+	public String getAccountid() {
+		return accountid;
+	}
+
+	public void setAccountid(String accountid) {
+		this.accountid = accountid;
 	}
 
 	@Override

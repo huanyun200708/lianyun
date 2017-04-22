@@ -8,7 +8,7 @@ import cn.com.hq.vo.OnboardInfoVO;
 public interface OnboardDao {
 	public void addOnboardInfo(OnboardInfo b);
 
-	public List<OnboardInfoVO> queryAllOnboardInfo();
+	public List<OnboardInfoVO> queryAllOnboardInfo(String infoid);
 
-	public void modifyOnboardInfo(OnboardInfo b);
+	public int modifyOnboardInfo(OnboardInfo b);
 }

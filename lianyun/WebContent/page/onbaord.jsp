@@ -63,9 +63,9 @@
 				<th data-options="field:'appointtime',width:200,align:'center'">预约时间</th>
 				<th data-options="field:'onboardtime',width:200,align:'center'">上车时间</th>
 				<th data-options="field:'onboardaddress',width:300,align:'center',editor:'numberbox'">上车地点</th>
-				<th data-options="field:'appointstatus',width:120,align:'center'">预约状态</th>
-				<th data-options="field:'onboardstatus',width:120,align:'center'">上车状态</th>
-				<th data-options="field:'operate',width:217,align:'center',formatter:formatPrice">操作</th>
+				<th data-options="field:'appointstatus',width:120,align:'center',formatter:formatAppointstatus">预约状态</th>
+				<th data-options="field:'onboardstatus',width:120,align:'center',formatter:formatOnboardstatus">上车状态</th>
+				<th data-options="field:'operate',width:217,align:'center',formatter:formatOperate">操作</th>
 			</tr>
 		</thead>
 	</table>

@@ -59,14 +59,8 @@ function append(){
 }
 function removeit(cell){
 	editIndex = $(cell).parent().parent().parent()[0].rowIndex;
-	$('#dg').datagrid('cancelEdit', editIndex)
-	.datagrid('deleteRow', editIndex);
-	editIndex = undefined;
-}
-function removeRow(){
-	//if (editIndex == undefined){return}
-	$('#dg').datagrid('cancelEdit', editIndex)
-			.datagrid('deleteRow', editIndex);
+	alert(getFieldData("dg",editIndex,"id"))
+	//$('#dg').datagrid('cancelEdit', editIndex).datagrid('deleteRow', editIndex);
 	editIndex = undefined;
 }
 function accept(){
@@ -82,17 +76,84 @@ function getChanges(){
 	var rows = $('#dg').datagrid('getChanges');
 	alert(rows.length+' rows are changed!');
 }
-function formatPrice(val,row,rowIndex){
-	var apointhtml =  '<span class="l-btn-left l-btn-icon-left" style="border: 0px solid #95B8E7;cursor: pointer;" onclick="removeit(this)">'+
+function formatOperate(val,row,rowIndex){
+	var apointhtml =  '<span class="l-btn-left l-btn-icon-left" style="border: 0px solid #95B8E7;cursor: pointer;" onclick="appointSuccess(this)">'+
 						'<span class="l-btn-text">预约成功</span>'+
 						'<span class="l-btn-icon icon-add"></span>'+
 					'</span>';
-	var onboardhtml =  '<span class="l-btn-left l-btn-icon-left" style="border: 0px solid #95B8E7;margin-left: 20px;cursor: pointer;" onclick="removeit(this)">'+
+	var onboardhtml =  '<span class="l-btn-left l-btn-icon-left" style="border: 0px solid #95B8E7;margin-left: 20px;cursor: pointer;" onclick="onboardSuccess(this)">'+
 						'<span class="l-btn-text">上车成功</span>'+
 						'<span class="l-btn-icon icon-ok"></span>'+
 					'</span>';
 	return apointhtml + onboardhtml;
 }
+
+function formatAppointstatus(val,row,rowIndex){
+	if (val == '0'){
+		return '<span style="color:red;">预约中...</span>';
+	} else {
+		return '预约成功';
+	}
+}
+function formatOnboardstatus(val,row,rowIndex){
+	if (val == '0'){
+		return '<span style="color:red;">未上车</span>';
+	} else {
+		return '已上车';
+	}
+}
 function onClickCell(index, field){
 	editIndex = index;
+}
+function appointSuccess(cell){
+	editIndex = $(cell).parent().parent().parent()[0].rowIndex;
+	var id = getFieldData("dg",editIndex,"id");
+	$.ajax({
+		async : false,
+		cache : false,
+		type : "POST",
+		url : CTX_PATH + "/hq/appointSuccess_onboard.do",
+		dataType : "json",
+		data : {
+			"id" : id
+		},
+		success : function(data, textStatus, jqXHR) {
+			if(data.success == false){
+				alert("!error:"+data.message);
+			}else{
+				$('#dg').datagrid('reload');
+			}
+		},
+		complete : function(XHR, TS) {
+			XHR = null;
+		}
+	});
+}
+function onboardSuccess(cell){
+	editIndex = $(cell).parent().parent().parent()[0].rowIndex;
+	var id = getFieldData("dg",editIndex,"id");
+	$.ajax({
+		async : false,
+		cache : false,
+		type : "POST",
+		url : CTX_PATH + "/hq/onboardSuccess_onboard.do",
+		dataType : "json",
+		data : {
+			"id" : id
+		},
+		success : function(data, textStatus, jqXHR) {
+			if(data.success == false){
+				alert("!error:"+data.message);
+			}else{
+				$('#dg').datagrid('reload');
+			}
+		},
+		complete : function(XHR, TS) {
+			XHR = null;
+		}
+	});
+}
+
+function getFieldData(tableId,rowIndex, fieldName){
+	return $('#dg').datagrid('getRows')[rowIndex][fieldName];
 }
