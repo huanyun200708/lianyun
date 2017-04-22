@@ -13,15 +13,16 @@ import cn.com.hq.dao.OnboardDao;
 import cn.com.hq.entity.Account;
 import cn.com.hq.entity.OnboardInfo;
 import cn.com.hq.util.PropertiesUtils;
+import cn.com.hq.util.StringUtil;
 import cn.com.hq.vo.OnboardInfoVO;
 
 public class OnboardDaoImpl implements OnboardDao {
 	private Dao dao = new Dao();
 	@Override
 	public void addOnboardInfo(OnboardInfo b) {
-		//INSERT INTO huangqidb.`onboardinfo` VALUES ('ob002', 'u001', '00:00:00', 'JN');
+		//INSERT INTO huangqidb.onboardinfo VALUES ('ob002', 'u001', '00:00:00', 'JN');
 		
-		String sql = "INSERT INTO  huangqidb.`onboardinfo` (`id`,`accountid`,`appointtime`,`onboardtime`,`onboardaddress`,`appointstatus`,`onboardstatus` ) VALUES (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO  huangqidb.onboardinfo (id,accountid,appointtime,onboardtime,onboardaddress,appointstatus,onboardstatus ) VALUES (?,?,?,?,?,?,?)";
 		Connection connection =  dao.getDBConnection();
 		if(dao.dbFlag.equals("Common")){
 			sql = sql.replaceAll("huangqidb\\.", "");
@@ -49,23 +50,38 @@ public class OnboardDaoImpl implements OnboardDao {
 	}
 
 	@Override
-	public List<OnboardInfoVO> queryAllOnboardInfo() {
+	public List<OnboardInfoVO> queryAllOnboardInfo(String infoid) {
 		List<OnboardInfoVO> infos = new ArrayList<OnboardInfoVO>(10);
-		String sql = "SELECT id, a.`name`,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus FROM huangqidb.`onboardinfo` o, huangqidb.account a where o.accountid=a.accountid";
+		String sql = "SELECT id, a.accountid,a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus FROM huangqidb.onboardinfo o, huangqidb.account a where o.accountid=a.accountid";
 		Connection connection =  dao.getDBConnection();
+		if(!StringUtil.isEmpty(infoid)){
+			sql = "SELECT id,a.accountid, a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus FROM huangqidb.onboardinfo o, huangqidb.account a"
+					+ " where o.accountid=a.accountid and o.id=?";
+		}
 		try {
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			PreparedStatement  ps;
+			ResultSet rs;
+			boolean result = false;
+			ps = connection.prepareStatement(sql);
+			if(!StringUtil.isEmpty(infoid)){
+				ps.setString(1,infoid);
+				rs = ps.executeQuery();
+			}else{
+				rs = ps.executeQuery(sql);
+			}
+			
 			while(rs.next()){
 				 String id = rs.getString(1);
-		        String accountname = rs.getString(2);
-		        String onboardtime = rs.getString(3);
-		        String appointtime = rs.getString(4);
-		        String onboardaddress = rs.getString(5);
-		        String appointstatus = rs.getString(6);
-		        String onboardstatus = rs.getString(7);
+				 String accountid = rs.getString(2);
+		        String accountname = rs.getString(3);
+		        String onboardtime = rs.getString(4);
+		        String appointtime = rs.getString(5);
+		        String onboardaddress = rs.getString(6);
+		        String appointstatus = rs.getString(7);
+		        String onboardstatus = rs.getString(8);
 		        OnboardInfoVO o = new OnboardInfoVO();
 		        o.setId(id);
+		        o.setAccountid(accountid);
 		        o.setAccountname(accountname);
 		        o.setAppointtime(appointtime);
 		        o.setOnboardtime(onboardtime);
@@ -75,7 +91,7 @@ public class OnboardDaoImpl implements OnboardDao {
 		        infos.add(o);
 		    }
 			dao.closeResultSet(rs);
-			dao.closeStatement(stmt);
+			dao.closeStatement(ps);
 			String v = PropertiesUtils.getPropertyValueByKey("isDbConnectionSingleStatic");
 			if(!"true".equals(v)){
 				dao.closeConnection(connection);
@@ -87,8 +103,41 @@ public class OnboardDaoImpl implements OnboardDao {
 	}
 
 	@Override
-	public void modifyOnboardInfo(OnboardInfo b) {
-
+	public int modifyOnboardInfo(OnboardInfo b) {
+		int resultCount = 0;
+		String sql = "update  huangqidb.onboardinfo"
+				+ " set accountid=?"
+				+ " , appointtime=?"
+				+ " , onboardtime=?"
+				+ " , onboardaddress=?"
+				+ " , appointstatus=?"
+				+ " , onboardstatus=?"
+				+ " where id=?";
+		Connection connection =  dao.getDBConnection();
+		if(dao.dbFlag.equals("Common")){
+			sql = sql.replaceAll("huangqidb\\.", "");
+		}
+		PreparedStatement  ps;
+		boolean result = false;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, b.getAccountid());
+			ps.setString(2, b.getAppointtime());
+			ps.setString(3, b.getOnboardtime());
+			ps.setString(4, b.getOnboardaddress());
+			ps.setString(5, b.getAppointstatus());
+			ps.setString(6, b.getOnboardstatus());
+			ps.setString(7, b.getId());
+			resultCount = ps.executeUpdate();
+			dao.closeStatement(ps);
+			String v = PropertiesUtils.getPropertyValueByKey("isDbConnectionSingleStatic");
+			if(!"true".equals(v)){
+				dao.closeConnection(connection);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultCount;
 	}
 
 }

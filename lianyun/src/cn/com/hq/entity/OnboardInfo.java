@@ -15,6 +15,21 @@ public class OnboardInfo {
 	private String appointstatus;
 	private String onboardstatus;
 
+	
+	
+	public OnboardInfo(String id, String accountid, String onboardtime,
+			String appointtime, String onboardaddress, String appointstatus,
+			String onboardstatus) {
+		super();
+		this.id = id;
+		this.accountid = accountid;
+		this.onboardtime = onboardtime;
+		this.appointtime = appointtime;
+		this.onboardaddress = onboardaddress;
+		this.appointstatus = appointstatus;
+		this.onboardstatus = onboardstatus;
+	}
+
 	public String getId() {
 		return id;
 	}

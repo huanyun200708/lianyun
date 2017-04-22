@@ -11,7 +11,9 @@ public interface OnboardService {
 	public void addOnboardInfo(OnboardInfo b);
 
 	public List<OnboardInfoVO> queryAllOnboardInfo();
+	
+	public List<OnboardInfoVO> queryAllOnboardInfoById(String id);
 
-	public void modifyOnboardInfo(OnboardInfo b);
+	public int modifyOnboardInfo(OnboardInfo b);
 
 }

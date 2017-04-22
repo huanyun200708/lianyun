@@ -19,12 +19,17 @@ public class OnboardServiceImpl implements OnboardService {
 
 	@Override
 	public List<OnboardInfoVO> queryAllOnboardInfo() {
-		return dao.queryAllOnboardInfo();
+		return dao.queryAllOnboardInfo("");
 	}
 
 	@Override
-	public void modifyOnboardInfo(OnboardInfo b) {
-		dao.modifyOnboardInfo(b);
+	public int modifyOnboardInfo(OnboardInfo b) {
+		return dao.modifyOnboardInfo(b);
+	}
+
+	@Override
+	public List<OnboardInfoVO> queryAllOnboardInfoById(String id) {
+		return dao.queryAllOnboardInfo(id);
 	}
 
 }

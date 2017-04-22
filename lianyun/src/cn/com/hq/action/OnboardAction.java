@@ -62,5 +62,63 @@ public class OnboardAction extends BaseAction {
 		
 	}
 	
+	public void appointSuccess(){
+		HttpServletRequest reguest= super.getRequest();
+		String id = reguest.getParameter("id");
+		if(!StringUtil.isEmpty(id)){
+			List<OnboardInfoVO> onboardInfos= onboardService.queryAllOnboardInfoById(id);
+			if(onboardInfos.size()>0){
+				OnboardInfoVO vo= onboardInfos.get(0);
+				OnboardInfo o = new OnboardInfo();
+				o.setId(vo.getId());
+				o.setAccountid(vo.getAccountid());
+				o.setAppointtime(vo.getAppointtime());
+				o.setOnboardaddress(vo.getOnboardaddress());
+				o.setOnboardtime(vo.getOnboardtime());
+				o.setAppointstatus("1");
+				o.setOnboardstatus(vo.getOnboardstatus());
+				int count = onboardService.modifyOnboardInfo(o);
+				if(count > 0){
+					responseWriter("{\"success\":true,\"message\":\"上车预约成功\"}");
+				}else{
+					responseWriter("{\"success\":false,\"message\":\"更新失败\"}");
+				}
+			}else{
+				responseWriter("{\"success\":false,\"message\":\"没有预约记录，预约失败\"}");
+			}
+			
+		}
+		
+	}
+	
+	public void onboardSuccess(){
+		HttpServletRequest reguest= super.getRequest();
+		String id = reguest.getParameter("id");
+		if(!StringUtil.isEmpty(id)){
+			List<OnboardInfoVO> onboardInfos= onboardService.queryAllOnboardInfoById(id);
+			if(onboardInfos.size()>0){
+				OnboardInfoVO vo= onboardInfos.get(0);
+				OnboardInfo o = new OnboardInfo();
+				o.setId(vo.getId());
+				o.setAccountid(vo.getAccountid());
+				o.setAppointtime(vo.getAppointtime());
+				o.setOnboardaddress(vo.getOnboardaddress());
+				o.setOnboardtime(vo.getOnboardtime());
+				o.setAppointstatus(vo.getAppointstatus());
+				o.setOnboardstatus("1");
+				int count = onboardService.modifyOnboardInfo(o);
+				if(count > 0){
+					responseWriter("{\"success\":true,\"message\":\"上车预约成功\"}");
+				}else{
+					responseWriter("{\"success\":false,\"message\":\"更新失败\"}");
+				}
+			}else{
+				responseWriter("{\"success\":false,\"message\":\"没有预约记录，预约失败\"}");
+			}
+			
+		}
+		
+	}
+	
 
 }
