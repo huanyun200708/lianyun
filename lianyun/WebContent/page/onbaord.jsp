@@ -37,46 +37,34 @@
 
 <body style="text-align: center;width:100%;height:100%;">
 	<div style="text-align: center;margin:0 auto">
-	<div class="easyui-panel" title="基本信息" style="text-align:center;margin:0 auto;width:100%;max-width:400px;padding:30px 60px;">
-		<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
-			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="accountname" id='accountname' style="width:100%" data-options="label:'姓名:',required:true">
-			</div>
-			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="onboardaddress" id='onboardaddress' style="width:100%" data-options="label:'上车地点:',required:true">
-			</div>
-		</form>
-		<div style="text-align:center;padding:5px 0">
-			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">我要上车</a>
+		<table id="dg" class="easyui-datagrid" title="上车信息表" style="width:1280px;height:auto"
+				data-options="
+					iconCls: 'icon-edit',
+					singleSelect: true,
+					url:CTX_PATH + '/hq/getOnboardInfo_onboard.do'
+				">
+			<thead>
+				<tr>
+					<th data-options="field:'id',width:80,hidden:true">id</th>
+					<th data-options="field:'accountname',width:120,align:'center'">姓名</th>
+					<th data-options="field:'appointtime',width:200,align:'center'">预约时间</th>
+					<th data-options="field:'onboardtime',width:200,align:'center'">上车时间</th>
+					<th data-options="field:'onboardaddress',width:300,align:'center',editor:'numberbox'">上车地点</th>
+					<th data-options="field:'appointstatus',width:120,align:'center',formatter:formatAppointstatus">预约状态</th>
+					<th data-options="field:'onboardstatus',width:120,align:'center',formatter:formatOnboardstatus">上车状态</th>
+					<th data-options="field:'operate',width:217,align:'center',formatter:formatOperate">操作</th>
+				</tr>
+			</thead>
+		</table>
+	 <!--
+		<div id="tb" style="height:auto">
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">添加一行</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">修改条数</a>
 		</div>
-	</div>
-	<table id="dg" class="easyui-datagrid" title="上车信息表" style="width:1280px;height:auto"
-			data-options="
-				iconCls: 'icon-edit',
-				singleSelect: true,
-				url:CTX_PATH + '/hq/getOnboardInfo_onboard.do'
-			">
-		<thead>
-			<tr>
-				<th data-options="field:'id',width:80,hidden:true">id</th>
-				<th data-options="field:'accountname',width:120,align:'center'">姓名</th>
-				<th data-options="field:'appointtime',width:200,align:'center'">预约时间</th>
-				<th data-options="field:'onboardtime',width:200,align:'center'">上车时间</th>
-				<th data-options="field:'onboardaddress',width:300,align:'center',editor:'numberbox'">上车地点</th>
-				<th data-options="field:'appointstatus',width:120,align:'center',formatter:formatAppointstatus">预约状态</th>
-				<th data-options="field:'onboardstatus',width:120,align:'center',formatter:formatOnboardstatus">上车状态</th>
-				<th data-options="field:'operate',width:217,align:'center',formatter:formatOperate">操作</th>
-			</tr>
-		</thead>
-	</table>
- 
-	<div id="tb" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">添加一行</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">修改条数</a>
-	</div>
+		-->
 	</div>
 	<script type="text/javascript">
 		(function($){

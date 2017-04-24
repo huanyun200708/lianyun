@@ -40,7 +40,7 @@
 	
 	<!-- 项目欢迎界面 -->
 	<welcome-file-list>
-	    <welcome-file>page/login.jsp</welcome-file>
+	    <welcome-file>page/appoint.jsp</welcome-file>
 	</welcome-file-list>
 	
  </web-app>

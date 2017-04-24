@@ -22,6 +22,11 @@
 			<result name="input">/login.jsp</result>
 			<result name="success">page/onbaord.jsp</result>
 		</action>
+		<action name="appoint" class="cn.com.hq.action.OnboardAction">
+			<!-- 定义逻辑视图和物理资源之间的映射 -->
+			<result name="input">/login.jsp</result>
+			<result name="success">page/appoint.jsp</result>
+		</action>
 		<action name="*_login" class="cn.com.hq.action.UserLoginAction"
 			method="{1}">
 		</action>
