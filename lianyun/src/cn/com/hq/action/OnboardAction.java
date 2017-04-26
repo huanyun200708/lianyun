@@ -12,6 +12,7 @@ import cn.com.hq.service.UserService;
 import cn.com.hq.serviceimpl.OnboardServiceImpl;
 import cn.com.hq.serviceimpl.UserServiceimpl;
 import cn.com.hq.serviceimpl.XssServiceImpl;
+import cn.com.hq.servlet.ForwardWebSocket;
 import cn.com.hq.util.JsonUtils;
 import cn.com.hq.util.PropertiesUtils;
 import cn.com.hq.util.StringUtil;
@@ -50,6 +51,7 @@ public class OnboardAction extends BaseAction {
 			b.setAppointstatus("0");
 			b.setOnboardstatus("0");
 			onboardService.addOnboardInfo(b);
+			ForwardWebSocket.sendAll("");
 			responseWriter("{\"success\":true,\"message\":\"上车预约成功，耐心等待。。。\"}");
 		}  catch (Exception e) {
 			e.printStackTrace();

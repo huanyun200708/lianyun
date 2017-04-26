@@ -32,6 +32,7 @@
 				"onboardaddress" : "d1"
 			};
 		var CTX_PATH = '<%=request.getContextPath()%>';
+		$(document).ready(connect());
 	</script>
 </head>
 

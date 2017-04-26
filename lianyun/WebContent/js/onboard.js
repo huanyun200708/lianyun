@@ -123,3 +123,36 @@ function onboardSuccess(cell){
 function getFieldData(tableId,rowIndex, fieldName){
 	return $('#dg').datagrid('getRows')[rowIndex][fieldName];
 }
+function connect() {
+	var host;
+	if (window.location.protocol == 'http:') {
+			host = 'ws://' + window.location.host + '/lianyun/forwardWebSocket';
+		} else {
+			host = 'wss://' + window.location.host + '/lianyun/forwardWebSocket';
+		}
+		if ('WebSocket' in window) {
+			ws = new WebSocket(host);
+		} else if ('MozWebSocket' in window) {
+			ws = new MozWebSocket(host);
+		} else {
+			return;
+		}
+		
+		ws.onopen = function() {
+
+		};
+
+		ws.onclose = function() {
+			
+		};
+		
+		ws.onmessage = function(message) {
+			$('#dg').datagrid('reload');
+			//收到消息后做出处理的方法
+			//handleMsg(JSON.parse(message.data));
+			//alert(JSON.parse(message.data).name + " 在 " +  JSON.parse(message.data).address+ " 等待上车");
+		};
+	}
+	function sendWebsocketMsg(){
+		ws.send(JSON.stringify("").replace(/\\n/g,"").replace(/\\t/g,""));
+	}
