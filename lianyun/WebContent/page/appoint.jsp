@@ -75,7 +75,7 @@
 </head>
 
 <body style="text-align: center;width:100%;height:100%;">
-	<div style="text-align: center;margin:0 auto;width: 600px;margin-top:10%">
+	<div style="text-align: center;margin:0 auto;width: 80%;margin-top:10%">
 		<!-- <div class="easyui-panel" title="预约上车" 
 			style="text-align:center;margin:0 auto;width:100%;max-width:800px;padding:30px 60px;font-size: 20px;font-weight:bold;">
 			<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">

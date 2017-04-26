@@ -10,7 +10,7 @@ body, html {
   height: 100%;
   background: #616161;
   background-image: url("hexabump.png");
-  font-size: 20px;
+  font-size: 1.2em;
 }
 
 body {
@@ -86,8 +86,8 @@ form fieldset legend {
   top: 0;
   left: 0;
   clear: both;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin-bottom: 2em;
+  padding-bottom: 2em;
   line-height: 30px;
   color: #444;
   text-shadow: 0 1px 0 #fff;
@@ -99,7 +99,7 @@ form fieldset .frow {
   float: left;
   display: block;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 2em;
 }
 form fieldset .frow:last-child {
   margin-bottom: 0px;
@@ -108,10 +108,10 @@ form fieldset input {
   float: left;
   width: 100%;
   padding: 12px 6px;
-  font-size: 20px;
+  font-size: 1.2em;
   font-weight: 400;
   font-family: "microsoft yahei";
-  border: 1px solid #dedede;
+  border: 1px solid #989191;
   border-radius: 5px;
   box-shadow: 0 0 0 transparent, inset 0 0 5px #eee;
   -webkit-transition: all 0.2s ease-in-out;

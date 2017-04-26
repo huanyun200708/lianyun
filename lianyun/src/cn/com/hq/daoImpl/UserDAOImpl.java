@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
 			stmt = connection.createStatement();
 			result = stmt.execute(sql);
 			dao.closeStatement(stmt);
-			dao.closeConnection(connection);
+			Dao.releaseConnection(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -88,10 +88,7 @@ public class UserDAOImpl implements UserDAO {
 		    }
 			dao.closeResultSet(rs);
 			dao.closeStatement(stmt);
-			String v = PropertiesUtils.getPropertyValueByKey("isDbConnectionSingleStatic");
-			if(!"true".equals(v)){
-				dao.closeConnection(connection);
-			}
+			Dao.releaseConnection(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

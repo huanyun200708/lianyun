@@ -40,10 +40,7 @@ public class OnboardDaoImpl implements OnboardDao {
 			ps.setString(7, b.getOnboardstatus());
 			ps.executeUpdate();
 			dao.closeStatement(ps);
-			String v = PropertiesUtils.getPropertyValueByKey("isDbConnectionSingleStatic");
-			if(!"true".equals(v)){
-				dao.closeConnection(connection);
-			}
+			Dao.releaseConnection(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -92,10 +89,7 @@ public class OnboardDaoImpl implements OnboardDao {
 		    }
 			dao.closeResultSet(rs);
 			dao.closeStatement(ps);
-			String v = PropertiesUtils.getPropertyValueByKey("isDbConnectionSingleStatic");
-			if(!"true".equals(v)){
-				dao.closeConnection(connection);
-			}
+			Dao.releaseConnection(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -130,10 +124,7 @@ public class OnboardDaoImpl implements OnboardDao {
 			ps.setString(7, b.getId());
 			resultCount = ps.executeUpdate();
 			dao.closeStatement(ps);
-			String v = PropertiesUtils.getPropertyValueByKey("isDbConnectionSingleStatic");
-			if(!"true".equals(v)){
-				dao.closeConnection(connection);
-			}
+			Dao.releaseConnection(connection);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
