@@ -34,6 +34,9 @@
 		var CTX_PATH = '<%=request.getContextPath()%>';
 		$(document).ready(connect());
 	</script>
+	<%
+	session.setAttribute("userId", "u0001"); //将str 添加到session对象中
+  %>
 </head>
 
 <body style="text-align: center;width:100%;height:100%;">

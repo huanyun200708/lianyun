@@ -51,7 +51,8 @@ public class OnboardAction extends BaseAction {
 			b.setAppointstatus("0");
 			b.setOnboardstatus("0");
 			onboardService.addOnboardInfo(b);
-			ForwardWebSocket.sendAll("");
+			String administritorId = PropertiesUtils.getPropertyValueByKey("administritorId");
+			ForwardWebSocket.sendUser(administritorId,"");
 			responseWriter("{\"success\":true,\"message\":\"上车预约成功，耐心等待。。。\"}");
 		}  catch (Exception e) {
 			e.printStackTrace();

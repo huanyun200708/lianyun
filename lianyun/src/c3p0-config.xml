@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <c3p0-config>
   <named-config name="lianyunDB"> 
-   
+   <!--
 	<property name="user">root</property>
 	<property name="password">1478963wx</property>
 	<property name="driverClass">com.mysql.jdbc.Driver</property>
 	<property name="jdbcUrl">jdbc:mysql://10.141.166.245:3306/huangqidb</property>  
+   -->
    
-   <!--
 	<property name="user">huangqiDB</property>
 	<property name="password">huangqiDB</property>
 	<property name="driverClass">oracle.jdbc.driver.OracleDriver</property>
 	<property name="jdbcUrl">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property>
-	-->
+	
 	<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数 -->
 	<property name="acquireIncrement">5</property>
 	<!--初始化时获取十个连接，取值应在minPoolSize与maxPoolSize之间 -->
