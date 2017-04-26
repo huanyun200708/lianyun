@@ -49,11 +49,16 @@ public class OnboardDaoImpl implements OnboardDao {
 	@Override
 	public List<OnboardInfoVO> queryAllOnboardInfo(String infoid) {
 		List<OnboardInfoVO> infos = new ArrayList<OnboardInfoVO>(10);
-		String sql = "SELECT id, a.accountid,a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus FROM huangqidb.onboardinfo o, huangqidb.account a where o.accountid=a.accountid";
+		String sql = "SELECT id, a.accountid,a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus "
+				+ "FROM huangqidb.onboardinfo o, huangqidb.account a "
+				+ "where o.accountid=a.accountid "
+				+ "order by appointstatus,onboardstatus,appointtime desc";
 		Connection connection =  dao.getDBConnection();
 		if(!StringUtil.isEmpty(infoid)){
-			sql = "SELECT id,a.accountid, a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus FROM huangqidb.onboardinfo o, huangqidb.account a"
-					+ " where o.accountid=a.accountid and o.id=?";
+			sql = "SELECT id,a.accountid, a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus "
+					+ "FROM huangqidb.onboardinfo o, huangqidb.account a"
+					+ " where o.accountid=a.accountid and o.id=? "
+					+ " order by appointstatus,onboardstatus,appointtime desc";
 		}
 		try {
 			PreparedStatement  ps;

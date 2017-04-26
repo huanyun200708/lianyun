@@ -103,7 +103,8 @@ public class OnboardAction extends BaseAction {
 				o.setAccountid(vo.getAccountid());
 				o.setAppointtime(vo.getAppointtime());
 				o.setOnboardaddress(vo.getOnboardaddress());
-				o.setOnboardtime(vo.getOnboardtime());
+				Date date = new Date();
+				o.setOnboardtime(StringUtil.changeDateFormat(date, "yyyy年MM月dd日 HH时mm分ss秒"));
 				o.setAppointstatus(vo.getAppointstatus());
 				o.setOnboardstatus("1");
 				int count = onboardService.modifyOnboardInfo(o);

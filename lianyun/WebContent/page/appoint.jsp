@@ -22,11 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/appoint.css">
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/lib/jquery-1.10.2.min.js"></script>
-	<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/EasyUI/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/js/EasyUI/themes/icon.css">
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/EasyUI/jquery.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/appoint.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/EasyUI/jquery.easyui.min.js"></script> --%>
 	<script type="text/javascript">
 		var name = "${myname}";
 		var onboardInfo = {
@@ -76,34 +72,19 @@
 
 <body style="text-align: center;width:100%;height:100%;">
 	<div style="text-align: center;margin:0 auto;width: 80%;margin-top:10%">
-		<!-- <div class="easyui-panel" title="预约上车" 
-			style="text-align:center;margin:0 auto;width:100%;max-width:800px;padding:30px 60px;font-size: 20px;font-weight:bold;">
-			<form id="ff" class="easyui-form" method="post" data-options="novalidate:true">
-				<div style="margin-bottom:20px;">
-					<input class="easyui-textbox" name="accountname" id='accountname' style="width:100%;" data-options="label:'姓名:',required:true">
-				</div>
-				<div style="margin-bottom:20px; ">
-					<input class="easyui-textbox" name="onboardaddress" id='onboardaddress' style="width:100%" data-options="label:'上车地点:',required:true">
-				</div>
-			</form>
-			<div style="text-align:center;padding:5px 0;">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:100px;font-size: 22px;">我要上车</a>
-			</div>
-		</div> -->
 		<form>
-			<!-- / Fieldset Alpha -->
 			<fieldset class="alpha">
 				<legend>
 					<b>预约上车</b>
 				</legend>
 				<div class="frow">
-					<input class="item" placeholder="姓名" type="text">
+					<input class="item" name="accountname" id='accountname' placeholder="姓名" type="text">
 				</div>
 				<div class="frow">
-					<input class="item" placeholder="地点" type="email">
+					<input class="item" name="onboardaddress" id='onboardaddress' placeholder="地点" type="email">
 				</div>
 				<div class="frow">
-					<a class="next-step" href="#">我要上车</a>
+					<a class="next-step" onclick="submitForm()" href="#">我要上车</a>
 				</div>
 			</fieldset>
 		</form>
