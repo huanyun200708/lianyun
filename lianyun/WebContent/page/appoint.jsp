@@ -30,9 +30,9 @@
 				"accountname" : "n1",
 				"onboardaddress" : "d1"
 			};
+		var winHeight = window.innerHeight; 
+		var winWidth = window.innerWidth;
 		var CTX_PATH = '<%=request.getContextPath()%>';
-		(function($){
-		})(jQuery);
 	</script>
 	<style type="text/css">
 		input {
@@ -71,7 +71,7 @@
 </head>
 
 <body style="text-align: center;width:100%;height:100%;">
-	<div style="text-align: center;margin:0 auto;width: 80%;margin-top:10%">
+	<div id='formDiv' style="text-align: center;margin:0 auto;width: 95%;height:200px;min-height:200px;height:auto;display:table- cell;">
 		<form>
 			<fieldset class="alpha">
 				<legend>

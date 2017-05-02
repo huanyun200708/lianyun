@@ -1,4 +1,8 @@
-var editIndex = undefined;
+$(document).ready(
+	function() {
+		var formHeight = parseInt($("fieldset").height());
+		$("#formDiv").css("margin-top",(winHeight-formHeight)/2);
+});
 
 function submitForm(){
 	onboardInfo.accountname = $("#accountname").val();
