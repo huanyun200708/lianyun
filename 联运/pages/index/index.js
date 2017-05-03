@@ -31,25 +31,31 @@ Page({
       content: "您的上车地点是："+ inputValue,
       success: function(res) {
         if (res.confirm) {
+          var onboardInfo = {
+            "accountid" : "u0001",
+            "accountname" : "n1",
+            "onboardaddress" : "d1"
+          };
+          onboardInfo.accountname = user.nickName;
+	        onboardInfo.onboardaddress = inputValue;
           wx.request({
-          url: 'https://newone.xyz/myframework2/hq/savaOrUpdateAccount_login.do', 
+          url: 'https://newone.xyz/lianyun/hq/addOnboardInfo_onboard.do', 
           data: {
-            address: inputValue ,
-            user: user.nickName
+           'onboardInfo':JSON.stringify(onboardInfo)
           },
           header: {
               'content-type': 'application/json'
           },
-          success: function(res) {
-            wx.showToast({
-            title: '申请成功，请等待...',
-            icon: 'success',
-            duration: 2000
-          })
-            console.log(res.data)
-            sendSocketMessage(
-              "{\"name\": \""+user.nickName+"\" ,\"address\": \""+inputValue+"\"}"
-            )
+          success: function(data) {
+            if (data.data.success){
+              wx.showToast({
+                title: data.data.message,
+                icon: 'success',
+                duration: 2000
+              })
+			      }
+            
+            console.log(data.data.message)
           }
         })
         } else if (res.cancel) {
@@ -71,10 +77,23 @@ Page({
     })
   }
 })
+
+wx.getUserInfo({
+  success: function(res) {
+    var userInfo = res.userInfo
+    var nickName = userInfo.nickName
+    var avatarUrl = userInfo.avatarUrl
+    var gender = userInfo.gender //性别 0：未知、1：男、2：女
+    var province = userInfo.province
+    var city = userInfo.city
+    var country = userInfo.country
+  }
+})
+/*
 var socketOpen = false
 var socketMsgQueue = []
 wx.connectSocket({
-  url: 'wss://newone.xyz/myframework2/forwardWebSocket'
+  url: 'wss://newone.xyz/lianyun/forwardWebSocket'
 })
 
 wx.onSocketOpen(function(res) {
@@ -99,3 +118,4 @@ wx.onSocketMessage(function(res) {
           })
   console.log('收到服务器内容：' + res.data)
 })
+*/
