@@ -9,4 +9,5 @@ public interface UserService {
 	public void savaOrUpdateAccount(Account a);
 	public List<Account> queryAccountByName(String name);
 	public boolean createAccount(Account a);
+	List<Account> queryAccountById(String id);
 }

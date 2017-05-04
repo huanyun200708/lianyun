@@ -21,7 +21,7 @@ import cn.com.hq.vo.OnboardInfoVO;
 public class OnboardAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	private OnboardService onboardService = new OnboardServiceImpl();
-	
+	private UserService userService = new UserServiceimpl();
 	public static void main(String[] args) {
 		System.out.println(XssServiceImpl.escapeHtmlForString("{\"name\":\"a&amp;#x5c;1\",\"age\":0}"));
 	}
@@ -42,7 +42,19 @@ public class OnboardAction extends BaseAction {
 	public void addOnboardInfo(){
 		HttpServletRequest reguest= super.getRequest();
 		String onboardInfo = reguest.getParameter("onboardInfo");
+		String account = reguest.getParameter("account");
 		try {
+			if(!StringUtil.isEmpty(account)){
+				Account a = JsonUtils.fromJson(account, Account.class);
+				//如果用户不存在，则添加新用户
+				if(userService.queryAccountById(a.getAccountid()).size() == 0){
+					if(StringUtil.isEmpty(a.getPassWord())){
+						a.setPassWord("123456");
+					}
+					userService.createAccount(a);
+				}
+			}
+			
 			OnboardInfo b = JsonUtils.fromJson(onboardInfo, OnboardInfo.class);
 			String id = "ob" + Math.round(Math.random()*100000);
 			b.setId(id);

@@ -11,18 +11,17 @@ public class UserServiceimpl implements cn.com.hq.service.UserService {
     
 	@Override
 	public List<Account> queryAccountByName(String name) {
-		
-		List<Account> accountList = userDAO.queryAccountByName(name);
-		if(accountList.size()>0){
-			return accountList;
-		}else{
-			return null;
-		}
-		
+		return userDAO.queryAccountByName(name);
 	}
+	
+	@Override
+	public List<Account> queryAccountById(String id) {
+		return userDAO.queryAccountById(id);
+	}
+	
 	@Override
 	public void savaOrUpdateAccount(Account a) {
-		if(userDAO.queryAccountByName(a.getName()).size()>0){
+		if(userDAO.queryAccountById(a.getAccountid()).size()>0){
 			userDAO.updateUser(a);
 		}else{
 			userDAO.saveUser(a);

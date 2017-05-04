@@ -11,7 +11,10 @@
   -->
   <view class="usermotto" >
   <view class="flex-item" >
-    <input bindinput="bindKeyInput" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 1.2em;' placeholder="上车地点" auto-focus/>
+    <input bindinput="addressEvent" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 1.2em;' placeholder="上车地点" auto-focus/>
+  </view>
+  <view class="flex-item" style="margin-top: 20px;">
+    <input bindinput="phoneNumEvent" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 1.2em;' placeholder="电话号码" auto-focus/>
   </view>
   <view class="flex-item" style="margin-top: 20px;">
     <button bindtap="buttonEvent" style='background-color:#009CAD;font-family:"microsoft yahei";font-size: 1em;' type="default" >我要上车</button>

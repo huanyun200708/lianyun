@@ -22,7 +22,9 @@ public class OnboardDaoImpl implements OnboardDao {
 	public void addOnboardInfo(OnboardInfo b) {
 		//INSERT INTO huangqidb.onboardinfo VALUES ('ob002', 'u001', '00:00:00', 'JN');
 		
-		String sql = "INSERT INTO  huangqidb.onboardinfo (id,accountid,appointtime,onboardtime,onboardaddress,appointstatus,onboardstatus ) VALUES (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO  huangqidb.onboardinfo "
+				+ "(id,accountid,appointtime,onboardtime,onboardaddress,appointstatus,onboardstatus ) "
+				+ "VALUES (?,?,?,?,?,?,?)";
 		Connection connection =  dao.getDBConnection();
 		if(dao.dbFlag.equals("Common")){
 			sql = sql.replaceAll("huangqidb\\.", "");

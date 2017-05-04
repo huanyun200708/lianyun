@@ -14,4 +14,8 @@ public interface UserDAO {
 	public Account getUser(Account u);
 	
 	public List<Account> queryAccountByName(String name);
+
+	List<Account> queryAccountById(String accountId);
+
+	List<Account> queryAllAccountBy();
 }

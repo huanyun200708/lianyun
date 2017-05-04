@@ -102,9 +102,6 @@ public class ForwardWebSocket {
     	                } catch (IOException e1) {
     	                    // Ignore
     	                }
-    	                String message = String.format("* %s %s",
-    	                        client.nickname, "has been disconnected.");
-    	                broadcast(message);
     	            }
     		 }  
 
@@ -115,19 +112,22 @@ public class ForwardWebSocket {
      * @param msg
      */
     public static void sendUser(String userId ,String msg){
+    	System.out.println("-----------start send massage to "+userId+"------------");
     	ForwardWebSocket c = (ForwardWebSocket)connections.get(userId);
 		try {
-			c.session.getBasicRemote().sendText(msg);
-		} catch (IOException e) {
+			if(c != null){
+				c.session.getBasicRemote().sendText(msg);
+				System.out.println("-----------end send massage to "+userId+"------------");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
             connections.remove(c);
             try {
                 c.session.close();
-            } catch (IOException e1) {
+            } catch (Exception e1) {
+            	e1.printStackTrace();
                 // Ignore
             }
-            String message = String.format("* %s %s",
-                    c.nickname, "has been disconnected.");
-            broadcast(message);  
 		} 
     }
 }

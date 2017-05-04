@@ -81,7 +81,10 @@
 					<input class="item" name="accountname" id='accountname' placeholder="姓名" type="text">
 				</div>
 				<div class="frow">
-					<input class="item" name="onboardaddress" id='onboardaddress' placeholder="地点" type="email">
+					<input class="item" name="onboardaddress" id='onboardaddress' placeholder="上车地点" type="email">
+				</div>
+				<div class="frow">
+					<input class="item" name="phoneNum" id='phoneNum' placeholder="电话号码" type="email">
 				</div>
 				<div class="frow">
 					<a class="next-step" onclick="submitForm()" href="#">我要上车</a>

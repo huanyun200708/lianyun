@@ -1,20 +1,22 @@
 //index.js
 //获取应用实例
 var app = getApp()
-var inputValue = ''
+var addressValue = ''
+var phoneNumValue = ''
+var openid = ''
 var user = ''
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
-    inputValue: ''
+    addressValue: ''
   },
   //事件处理函数
-  bindViewTap: function() {
+  bindViewTap: function () {
     wx.showModal({
       title: '提示',
       content: '这是一个模态弹窗',
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
         } else if (res.cancel) {
@@ -23,41 +25,76 @@ Page({
       }
     })
   },
-  bindKeyInput: function(e) {
-      inputValue =  e.detail.value;
+  addressEvent: function (e) {
+    addressValue = e.detail.value;
   },
-  buttonEvent:  function(e)  {
+  phoneNumEvent: function (e) {
+    phoneNumValue = e.detail.value;
+  },
+  buttonEvent: function (e) {
+    if (/^\s*$/.test(addressValue)) {
+      wx.showToast({
+        title: '上车地点不能为空',
+        icon: 'success',
+        duration: 2000
+      })
+      reurn;
+    }
+    if (/^\s*$/.test(phoneNumValue)) {
+      wx.showToast({
+        title: '电话号码不能为空',
+        icon: 'success',
+        duration: 2000
+      })
+      reurn;
+    }
+    if (!/^\d*$/.test(phoneNumValue)) {
+      wx.showToast({
+        title: '电话号码格式错误',
+        icon: 'success',
+        duration: 2000
+      })
+      reurn;
+    }
     wx.showModal({
-      content: "您的上车地点是："+ inputValue,
-      success: function(res) {
+      content: "您的上车地点是：" + addressValue,
+      success: function (res) {
         if (res.confirm) {
           var onboardInfo = {
-            "accountid" : "u0001",
-            "accountname" : "n1",
-            "onboardaddress" : "d1"
+            "accountid": openid,
+            "accountname": "n1",
+            "onboardaddress": "d1"
           };
+
           onboardInfo.accountname = user.nickName;
-	        onboardInfo.onboardaddress = inputValue;
+          onboardInfo.onboardaddress = addressValue;
+
+          var account = {
+            "accountid": openid,
+            "name": user.nickName,
+            "phone": phoneNumValue
+          };
           wx.request({
-          url: 'https://newone.xyz/lianyun/hq/addOnboardInfo_onboard.do', 
-          data: {
-           'onboardInfo':JSON.stringify(onboardInfo)
-          },
-          header: {
+            url: 'https://newone.xyz/lianyun/hq/addOnboardInfo_onboard.do',
+            data: {
+              'onboardInfo': JSON.stringify(onboardInfo),
+              'account': JSON.stringify(account)
+            },
+            header: {
               'content-type': 'application/json'
-          },
-          success: function(data) {
-            if (data.data.success){
-              wx.showToast({
-                title: data.data.message,
-                icon: 'success',
-                duration: 2000
-              })
-			      }
-            
-            console.log(data.data.message)
-          }
-        })
+            },
+            success: function (data) {
+              if (data.data.success) {
+                wx.showToast({
+                  title: data.data.message,
+                  icon: 'success',
+                  duration: 2000
+                })
+              }
+
+              console.log(data.data.message)
+            }
+          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -68,18 +105,33 @@ Page({
     console.log('onLoad')
     var that = this
     //调用应用实例的方法获取全局数据
-    app.getUserInfo(function(userInfo){
+    app.getUserInfo(function (userInfo) {
       user = userInfo;
       //更新数据
       that.setData({
-        userInfo:userInfo
+        userInfo: userInfo
       })
     })
   }
 })
-
+wx.login({
+  success: function (res) {
+    if (res.code) {
+      wx.request({
+        url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + 'wx9735fefbb45f7033' + '&secret=' + '964ac6cc7bc88b1a9ae6d451960d1db9' + '&js_code=' + res.code + '&grant_type=authorization_code',
+        data: {
+          code: res.code
+        },
+        success: function (res) {
+          openid = res.data.openid;
+          console.log(res.data)
+        }
+      })
+    }
+  }
+})
 wx.getUserInfo({
-  success: function(res) {
+  success: function (res) {
     var userInfo = res.userInfo
     var nickName = userInfo.nickName
     var avatarUrl = userInfo.avatarUrl
