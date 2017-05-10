@@ -48,6 +48,14 @@ Page({
       })
       reurn;
     }
+    if (phoneNumValue.length>11) {
+      wx.showToast({
+        title: '电话号码长度不能超过11位',
+        icon: 'success',
+        duration: 2000
+      })
+      reurn;
+    }
     if (!/^\d*$/.test(phoneNumValue)) {
       wx.showToast({
         title: '电话号码格式错误',

@@ -1,14 +1,9 @@
 <!--index.wxml-->
-<view class="container">
+<view class="container" style='padding:100rpx 0;'>
   <view  bindtap="buttonEvent" class="userinfo">
     <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
     <text class="userinfo-nickname">{{userInfo.nickName}}    </text>
   </view>
-  <!--
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-  -->
   <view class="usermotto" >
   <view class="flex-item" >
     <input bindinput="addressEvent" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 1.2em;' placeholder="上车地点" auto-focus/>

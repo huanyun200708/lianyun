@@ -10,6 +10,7 @@ public class OnboardInfoVO {
 	private String id;
 	private String accountid;
 	private String accountname;
+	private String phone;
 	private String appointtime;
 	private String onboardtime;
 	private String onboardaddress;
@@ -47,6 +48,16 @@ public class OnboardInfoVO {
 
 	public void setAccountname(String accountname) {
 		this.accountname = accountname;
+	}
+	
+	
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getAppointtime() {

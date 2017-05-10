@@ -28,6 +28,7 @@
 		var onboardInfo = {
 				"accountid" : "u0001",
 				"accountname" : "n1",
+				"phone" : "111",
 				"onboardaddress" : "d1"
 			};
 		var winHeight = window.innerHeight; 

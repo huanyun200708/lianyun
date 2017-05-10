@@ -51,13 +51,13 @@ public class OnboardDaoImpl implements OnboardDao {
 	@Override
 	public List<OnboardInfoVO> queryAllOnboardInfo(String infoid) {
 		List<OnboardInfoVO> infos = new ArrayList<OnboardInfoVO>(10);
-		String sql = "SELECT id, a.accountid,a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus "
+		String sql = "SELECT id, a.accountid,a.name,a.phone,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus "
 				+ "FROM huangqidb.onboardinfo o, huangqidb.account a "
 				+ "where o.accountid=a.accountid "
 				+ "order by appointstatus,onboardstatus,appointtime desc";
 		Connection connection =  dao.getDBConnection();
 		if(!StringUtil.isEmpty(infoid)){
-			sql = "SELECT id,a.accountid, a.name,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus "
+			sql = "SELECT id,a.accountid, a.name,a.phone,onboardtime,appointtime,onboardaddress,appointstatus,onboardstatus "
 					+ "FROM huangqidb.onboardinfo o, huangqidb.account a"
 					+ " where o.accountid=a.accountid and o.id=? "
 					+ " order by appointstatus,onboardstatus,appointtime desc";
@@ -78,15 +78,17 @@ public class OnboardDaoImpl implements OnboardDao {
 				 String id = rs.getString(1);
 				 String accountid = rs.getString(2);
 		        String accountname = rs.getString(3);
-		        String onboardtime = rs.getString(4);
-		        String appointtime = rs.getString(5);
-		        String onboardaddress = rs.getString(6);
-		        String appointstatus = rs.getString(7);
-		        String onboardstatus = rs.getString(8);
+		        String phone = rs.getString(4);
+		        String onboardtime = rs.getString(5);
+		        String appointtime = rs.getString(6);
+		        String onboardaddress = rs.getString(7);
+		        String appointstatus = rs.getString(8);
+		        String onboardstatus = rs.getString(9);
 		        OnboardInfoVO o = new OnboardInfoVO();
 		        o.setId(id);
 		        o.setAccountid(accountid);
 		        o.setAccountname(accountname);
+		        o.setPhone(phone);
 		        o.setAppointtime(appointtime);
 		        o.setOnboardtime(onboardtime);
 		        o.setOnboardaddress(onboardaddress);

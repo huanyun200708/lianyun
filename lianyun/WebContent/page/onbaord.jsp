@@ -41,7 +41,7 @@
 
 <body style="text-align: center;width:100%;height:100%;">
 	<div style="text-align: center;margin:0 auto">
-		<table id="dg" class="easyui-datagrid" title="上车信息表" style="width:1280px;height:auto"
+		<table id="dg" class="easyui-datagrid" title="上车信息表" style="width:1153px;height:auto"
 				data-options="
 					iconCls: 'icon-edit',
 					singleSelect: true,
@@ -50,13 +50,14 @@
 			<thead>
 				<tr>
 					<th data-options="field:'id',width:80,hidden:true">id</th>
-					<th data-options="field:'accountname',width:120,align:'center'">姓名</th>
-					<th data-options="field:'appointtime',width:200,align:'center'">预约时间</th>
-					<th data-options="field:'onboardtime',width:200,align:'center'">上车时间</th>
+					<th data-options="field:'accountname',width:90,align:'center'">姓名</th>
+					<th data-options="field:'phone',width:90,align:'center'">电话</th>
+					<th data-options="field:'appointtime',width:175,align:'center'">预约时间</th>
+					<th data-options="field:'onboardtime',width:175,align:'center'">上车时间</th>
 					<th data-options="field:'onboardaddress',width:300,align:'center',editor:'numberbox'">上车地点</th>
-					<th data-options="field:'appointstatus',width:120,align:'center',formatter:formatAppointstatus">预约状态</th>
-					<th data-options="field:'onboardstatus',width:120,align:'center',formatter:formatOnboardstatus">上车状态</th>
-					<th data-options="field:'operate',width:217,align:'center',formatter:formatOperate">操作</th>
+					<th data-options="field:'appointstatus',width:70,align:'center',formatter:formatAppointstatus">预约状态</th>
+					<th data-options="field:'onboardstatus',width:70,align:'center',formatter:formatOnboardstatus">上车状态</th>
+					<th data-options="field:'operate',width:180,align:'center',formatter:formatOperate">操作</th>
 				</tr>
 			</thead>
 		</table>
