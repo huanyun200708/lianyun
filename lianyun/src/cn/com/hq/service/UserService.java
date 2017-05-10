@@ -10,4 +10,5 @@ public interface UserService {
 	public List<Account> queryAccountByName(String name);
 	public boolean createAccount(Account a);
 	List<Account> queryAccountById(String id);
+	public void updateAccount(Account account);
 }

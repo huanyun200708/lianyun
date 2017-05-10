@@ -33,6 +33,8 @@
 		<action name="*_onboard" class="cn.com.hq.action.OnboardAction"
 			method="{1}">
 		</action>
+		<action name="*_userMg" class="cn.com.hq.action.UserManageAction" method="{1}">
+		</action>
 	</package>
 	<package name="struts2" namespace="/page" extends="struts-default">
 		<action name="*_fileUpload" class="cn.com.hq.action.FileUploadAction"

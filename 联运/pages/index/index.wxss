@@ -19,3 +19,11 @@
 .usermotto {
   margin-top: 80px;
 }
+
+.navigator-hover {
+  color: #ababab;
+}
+/** 自定义其他点击态样式类 **/
+.other-navigator-hover {
+    color:red;
+}

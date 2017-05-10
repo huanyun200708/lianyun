@@ -22,15 +22,15 @@ public class UserServiceimpl implements cn.com.hq.service.UserService {
 	@Override
 	public void savaOrUpdateAccount(Account a) {
 		if(userDAO.queryAccountById(a.getAccountid()).size()>0){
-			userDAO.updateUser(a);
+			userDAO.updateAccount(a);
 		}else{
-			userDAO.saveUser(a);
+			userDAO.saveAccount(a);
 		}
 		
 	}
 	@Override
 	public boolean  createAccount(Account a){
-		return userDAO.saveUser(a);
+		return userDAO.saveAccount(a);
 	}
 	
 	public UserDAO getUserDAO() {
@@ -38,6 +38,12 @@ public class UserServiceimpl implements cn.com.hq.service.UserService {
 	}
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+	@Override
+	public void updateAccount(Account account) {
+		userDAO.updateAccount(account);
+		
 	}
 	
 }

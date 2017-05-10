@@ -5,14 +5,12 @@ import java.util.List;
 import cn.com.hq.entity.Account;
 
 public interface UserDAO {
-	public boolean saveUser(Account u);
+	public boolean saveAccount(Account u);
 
-	public void updateUser(Account u);
+	public void updateAccount(Account u);
 
-	public void deleteUser(Account u);
+	public void deleteAccount(Account u);
 
-	public Account getUser(Account u);
-	
 	public List<Account> queryAccountByName(String name);
 
 	List<Account> queryAccountById(String accountId);

@@ -1,0 +1,23 @@
+<view style="text-align:center;font-family:microsoft yahei">
+  <text>{{title}} </text>
+</view>
+<view style="text-align:left;font-family:microsoft yahei;font-size: 14px;">
+  <text style="margin:0px;padding:0px;font-weight: bold;">
+    信息的收集
+  </text>
+  <text>
+    此小程序会收集您的微信名称和电话号码，但是我们承诺我们不会向任何无关第三方提供，出售，出租，分享和交易您的个人信息。为了更好的提供服务，请您务必授权小程序收集您的微信名称和电话号码信息。
+  </text>
+  <text style="margin:0px;padding:0px;font-weight: bold;">
+    信息的存储和交换
+  </text>
+  <text>
+    所收集的用户信息和资料将保存在腾讯及（或）其关联公司的服务器上。
+  </text>
+  <text style="margin:0px;padding:0px;font-weight: bold;">
+    安全
+  </text>
+  <text>
+    我们的小程序有相应的安全措施来确保我们掌握的信息不丢失，不被滥用和变造。这些安全措施包括使用加密传输协议进行数据传输和不提供导出用户个人信息的功能。尽管我们有这些安全措施，但请注意在因特网上不存在“完善的安全措施”。
+  </text>
+</view>

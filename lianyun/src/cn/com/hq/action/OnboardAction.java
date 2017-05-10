@@ -42,16 +42,24 @@ public class OnboardAction extends BaseAction {
 	public void addOnboardInfo(){
 		HttpServletRequest reguest= super.getRequest();
 		String onboardInfo = reguest.getParameter("onboardInfo");
-		String account = reguest.getParameter("account");
+		String accountStr = reguest.getParameter("account");
 		try {
-			if(!StringUtil.isEmpty(account)){
-				Account a = JsonUtils.fromJson(account, Account.class);
+			if(!StringUtil.isEmpty(accountStr)){
+				Account a = JsonUtils.fromJson(accountStr, Account.class);
 				//如果用户不存在，则添加新用户
-				if(userService.queryAccountById(a.getAccountid()).size() == 0){
+				List<Account> accountList = userService.queryAccountById(a.getAccountid());
+				
+				if(accountList.size() == 0){
 					if(StringUtil.isEmpty(a.getPassWord())){
 						a.setPassWord("123456");
 					}
 					userService.createAccount(a);
+				}else{
+					Account account = accountList.get(0);
+					if(account.getPhone()!=null || !account.getPhone().equals(a.getPhone())){
+						account.setPhone(a.getPhone());
+						userService.updateAccount(account);
+					}
 				}
 			}
 			

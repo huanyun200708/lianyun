@@ -3,60 +3,57 @@ package cn.com.hq.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.struts2.ServletActionContext;
+
 import cn.com.hq.entity.Account;
 import cn.com.hq.service.UserService;
+import cn.com.hq.serviceimpl.UserServiceimpl;
 import cn.com.hq.util.JsonUtils;
+import cn.com.hq.util.StringUtil;
+
 import com.opensymphony.xwork2.ActionSupport;
 
-public class UserManageAction extends ActionSupport {
+public class UserManageAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
-	private String userName;
-	private String passWord;
-	private UserService userService;
-	private String as;
+	private UserService userService = new UserServiceimpl();
+	HttpServletRequest reguest= super.getRequest();
 	public String execute() throws Exception {
-		List<Account> accounts = new ArrayList<Account>();
-		Account a1 = new Account();
-		a1.setName("a1");
-		Account a2 = new Account();
-		a2.setName("a2");
-		accounts.add(a1);
-		accounts.add(a2);
-		as = JsonUtils.toJson(accounts);
-		ServletActionContext.getRequest().setAttribute("myname", "u1");
-		//ServletActionContext.getRequest().setAttribute("accounts", JsonUtils.toJson(accounts));
-		ServletActionContext.getRequest().setAttribute("a1", JsonUtils.toJson(a1));
 		return "success";
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassWord() {
-		return passWord;
-	}
-
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
 	}
 
 	public UserService getUserService() {
 		return userService;
 	}
-
-
-	public String getAs() {
-		return as;
+	public void isPhoneChange(){
+		String accountStr = reguest.getParameter("account");
+		if(!StringUtil.isEmpty(accountStr)){
+			Account a = JsonUtils.fromJson(accountStr, Account.class);
+			//如果用户不存在，则添加新用户
+			List<Account> accountList = userService.queryAccountById(a.getAccountid());
+			if(accountList.size() > 0){
+				Account account = accountList.get(0);
+				if(account.getPhone()!=null && !account.getPhone().equals(a.getPhone())){
+					account.setPhone(a.getPhone());
+					userService.updateAccount(account);
+				}
+			}
+		}
 	}
-
-	public void setAs(String as) {
-		this.as = as;
+	
+	public void getAccountInfo(){
+		String accountId = reguest.getParameter("accountId");
+		if(!StringUtil.isEmpty(accountId)){
+			//如果用户不存在，则添加新用户
+			List<Account> accountList = userService.queryAccountById(accountId);
+			if(accountList.size() > 0){
+				Account account = accountList.get(0);
+				responseWriter("{\"success\":true,\"account\":"+JsonUtils.toJson(account)+"}");
+			}else{
+				responseWriter("{\"success\":false,\"message\":\"result is null\"}");
+			}
+		}
 	}
 
 }

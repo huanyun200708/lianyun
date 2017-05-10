@@ -1,0 +1,4 @@
+/* /page/privacyStatement/privacyStatement.wxss */
+text{
+  margin-top:0em;
+}
