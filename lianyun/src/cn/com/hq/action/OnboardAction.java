@@ -73,7 +73,7 @@ public class OnboardAction extends BaseAction {
 			onboardService.addOnboardInfo(b);
 			String administritorId = PropertiesUtils.getPropertyValueByKey("administritorId");
 			ForwardWebSocket.sendUser(administritorId,"");
-			responseWriter("{\"success\":true,\"message\":\"上车预约成功，耐心等待。。。\"}");
+			responseWriter("{\"success\":true,\"message\":\"上车预约成功，耐心等待。。。\",\"appointtime\":\""+StringUtil.changeDateFormat(date, "yyyy年MM月dd日 HH时mm分ss秒")+"\"}");
 		}  catch (Exception e) {
 			e.printStackTrace();
 			responseWriter("{\"success\":false,\"message\":\"预约失败 \"}");

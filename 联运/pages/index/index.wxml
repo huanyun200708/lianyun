@@ -1,21 +1,23 @@
 <!--index.wxml-->
-<view class="container" style='padding:100rpx 0;'>
-  <view bindtap="buttonEvent" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}} </text>
-  </view>
-  <view class="usermotto">
-    <view class="flex-item">
-      <input id="phoneNum" bindinput="phoneNumEvent" type="number" value="{{phoneNum}}" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 2em;' placeholder="电话号码" auto-focus/>
+<form bindsubmit="buttonEvent" bindreset="formReset"  report-submit>
+  <view class="container" style='padding:100rpx 0;'>
+    <view bindtap="buttonEvent" class="userinfo">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}} </text>
     </view>
-    <view class="flex-item" style="margin-top: 20px;">
-      <input id="accountname" bindinput="addressEvent" type="text" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 2em;' placeholder="上车地点" auto-focus/>
+    <view class="usermotto">
+      <view class="flex-item">
+        <input id="phoneNum"  name='phoneNum'  bindinput="phoneNumEvent" type="number" value="{{phoneNum}}" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 2em;' placeholder="电话号码" auto-focus/>
+      </view>
+      <view class="flex-item" style="margin-top: 20px;">
+        <input id="address" name='address' bindinput="addressEvent" type="text" style='font-size: 1em;  font-family: "microsoft yahei";border: 1px solid #27c1bf;line-height: 2em;' placeholder="上车地点" auto-focus/>
+      </view>
+      <view class="flex-item" style="margin-top: 20px;">
+      <button formType="submit" style='background-color:#009CAD;font-family:"microsoft yahei";font-size: 1em;' type="default">我要上车</button>
+      </view>
     </view>
-    <view class="flex-item" style="margin-top: 20px;">
-      <button bindtap="buttonEvent" style='background-color:#009CAD;font-family:"microsoft yahei";font-size: 1em;' type="default">我要上车</button>
-    </view>
-  </view>
-   <view style="position: absolute;bottom: 30px;right:30px;">
+    <view style="position: absolute;bottom: 30px;right:30px;">
       <navigator url="/pages/privacyStatement/privacyStatement?title=隐私声明" open-type="navigate" hover-class="other-navigator-hover" style="color:#ababab;font-size: 14px;">隐私声明</navigator>
     </view>
-</view>
+  </view>
+</form>

@@ -6,11 +6,14 @@ var phoneNumValue = ''
 var openid = ''
 var user = ''
 var oldPhoneNum = ''
+var access_token=''
 var account = {
   "accountid": "",
   "name": "",
   "phone": ""
 };
+var formId=""
+var appointtime = ""
 Page({
   data: {
     motto: 'Hello World',
@@ -19,18 +22,12 @@ Page({
     phoneNum: ""
   },
   //事件处理函数
-  bindViewTap: function () {
-    wx.showModal({
-      title: '提示',
-      content: '这是一个模态弹窗',
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    formId = e.detail.formId;
+  },
+  formReset: function () {
+    console.log('form发生了reset事件')
   },
   addressEvent: function (e) {
     addressValue = e.detail.value;
@@ -39,6 +36,8 @@ Page({
     phoneNumValue = e.detail.value;
   },
   buttonEvent: function (e) {
+    formId = e.detail.formId;
+    console.log('form发生了submit事件，formId为：', formId);
     var that = this
     if (/^\s*$/.test(addressValue)) {
       wx.showToast({
@@ -94,8 +93,10 @@ Page({
 
   },
   onLoad: function () {
-    console.log('onLoad')
     var that = this
+     //说先获取管理员openid，如果当前用户是管理员则开始轮询调用用户等车信息。每10秒调用一次
+    //that.getMessage();
+    console.log('onLoad')
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
       user = userInfo;
@@ -136,6 +137,18 @@ Page({
                   console.log(data.data.message)
                 }
               })
+
+              //获取access_token
+              wx.request({
+                url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wx9735fefbb45f7033&secret=964ac6cc7bc88b1a9ae6d451960d1db9',
+                header: {
+                  'content-type': 'application/json'
+                },
+                success: function (data) {
+                  access_token = data.data.access_token;
+                  console.log(data.data.access_token)
+                }
+              })
             }
           })
         }
@@ -172,11 +185,54 @@ Page({
             },
             success: function (data) {
               if (data.data.success) {
+                appointtime = data.data.appointtime;
                 wx.showToast({
                   title: data.data.message,
                   icon: 'success',
                   duration: 2000
                 })
+
+                  wx.request({
+                    url: 'https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=' + access_token,
+                    data: {
+                      "touser": openid,
+                      "template_id": "MWBSRXzEZNqvWE6LTwM8lHLujuJ5uIuEXog1bGetDJA",
+                      page: '/pages/index/index',
+                      "form_id": formId,
+                      "data": {
+                        "keyword1": {
+                          "value": user.nickName,
+                          "color": "#173177"
+                        },
+                        "keyword2": {
+                          "value": phoneNumValue,
+                          "color": "#173177"
+                        },
+                        "keyword3": {
+                          "value": appointtime,
+                          "color": "#173177"
+                        },
+                        "keyword4": {
+                          "value": addressValue,
+                          "color": "#173177"
+                        },
+                        "keyword5": {
+                          "value": "预约上车",
+                          "color": "#173177"
+                        }
+                      },
+                      "emphasis_keyword": "keyword2"
+                    },
+                    method: 'POST',
+                    header: {
+                      'content-type': 'application/json'
+                    },
+                    success: function (data) {
+                      console.log(data.data.errcode)
+                      console.log(data.data.errmsg)
+                    }
+                  })  
+                
               }
               console.log(data.data.message)
             }
@@ -186,6 +242,11 @@ Page({
         }
       }
     })
+  },
+  getMessage(){
+    setTimeout(function () {
+      that.getMessage()
+    }, 30000)
   }
 })
 wx.getUserInfo({
@@ -199,13 +260,14 @@ wx.getUserInfo({
     var country = userInfo.country
   }
 })
-/*
+
 var socketOpen = false
 var socketMsgQueue = []
+/*
 wx.connectSocket({
   url: 'wss://newone.xyz/lianyun/forwardWebSocket'
 })
-
+*/
 wx.onSocketOpen(function(res) {
   socketOpen = true
   socketMsgQueue = []
@@ -228,4 +290,3 @@ wx.onSocketMessage(function(res) {
           })
   console.log('收到服务器内容：' + res.data)
 })
-*/
