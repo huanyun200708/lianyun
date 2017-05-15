@@ -1,7 +1,5 @@
 package cn.com.hq.vo;
 
-import java.sql.Time;
-
 public class OnboardInfoVO {
 
 	public OnboardInfoVO() {

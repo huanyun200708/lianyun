@@ -199,5 +199,37 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return accountList;
 	}
+
+	@Override
+	public List<String> queryAuthorityById(String accountId) {
+
+		List<String> auList = new ArrayList<String>();
+		String sql = "";
+		if(!StringUtil.isEmpty(accountId)){
+			sql = "SELECT roleid FROM huangqidb.authority where accountid= ?";
+		}else{
+			return auList;
+		}
+		if(dao.dbFlag.equals("Common")){
+			sql = sql.replaceAll("huangqidb\\.", "");
+		}
+		Connection connection =  dao.getDBConnection();
+		PreparedStatement  ps;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, accountId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				String au = rs.getString(1);
+		        auList.add(au);
+		    }
+			dao.closeResultSet(rs);
+			dao.closeStatement(ps);
+			Dao.releaseConnection(connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return auList;
+	}
 	
 }

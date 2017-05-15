@@ -5,6 +5,7 @@ import java.util.List;
 import cn.com.hq.dao.OnboardDao;
 import cn.com.hq.daoImpl.OnboardDaoImpl;
 import cn.com.hq.entity.OnboardInfo;
+import cn.com.hq.entity.Onboardmesage;
 import cn.com.hq.service.OnboardService;
 import cn.com.hq.vo.OnboardInfoVO;
 
@@ -30,6 +31,18 @@ public class OnboardServiceImpl implements OnboardService {
 	@Override
 	public List<OnboardInfoVO> queryAllOnboardInfoById(String id) {
 		return dao.queryAllOnboardInfo(id);
+	}
+
+	@Override
+	public void addOnboardmessage(Onboardmesage onboardmesage) {
+		 dao.addOnboardmessage(onboardmesage);
+		
+	}
+
+	@Override
+	public void deleteOnboardmesageById(String id) {
+		 dao.deleteOnboardmesageById(id);
+		
 	}
 
 }

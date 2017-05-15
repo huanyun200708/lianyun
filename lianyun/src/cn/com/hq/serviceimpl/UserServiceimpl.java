@@ -45,5 +45,10 @@ public class UserServiceimpl implements cn.com.hq.service.UserService {
 		userDAO.updateAccount(account);
 		
 	}
+
+	@Override
+	public List<String> queryAuthorityById(String accountId) {
+		return userDAO.queryAuthorityById(accountId);
+	}
 	
 }

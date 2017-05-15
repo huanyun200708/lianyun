@@ -11,4 +11,5 @@ public interface UserService {
 	public boolean createAccount(Account a);
 	List<Account> queryAccountById(String id);
 	public void updateAccount(Account account);
+	public List<String> queryAuthorityById(String accountId);
 }

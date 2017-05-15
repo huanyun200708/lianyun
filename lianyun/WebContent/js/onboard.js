@@ -1,4 +1,5 @@
 var editIndex = undefined;
+var isConnectWsSuccess = false;
 function endEditing(){
 	if (editIndex == undefined){return true}
 	if ($('#dg').datagrid('validateRow', editIndex)){
@@ -126,9 +127,9 @@ function getFieldData(tableId,rowIndex, fieldName){
 function connect() {
 	var host;
 	if (window.location.protocol == 'http:') {
-			host = 'ws://' + window.location.host + '/lianyun/forwardWebSocket';
+			host = 'ws://' + window.location.host + '/lianyun/forwardWebSocket?from='+accountid + "_" +new Date().getTime();
 		} else {
-			host = 'wss://' + window.location.host + '/lianyun/forwardWebSocket';
+			host = 'wss://' + window.location.host + '/lianyun/forwardWebSocket?from='+accountid + "_" +new Date().getTime();
 		}
 		if ('WebSocket' in window) {
 			ws = new WebSocket(host);
@@ -139,7 +140,8 @@ function connect() {
 		}
 		
 		ws.onopen = function() {
-
+			alert("连接成功")
+			isConnectWsSuccess = true;
 		};
 
 		ws.onclose = function() {

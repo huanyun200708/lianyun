@@ -25,6 +25,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/appoint.js"></script>
 	<script type="text/javascript">
 		var name = "${myname}";
+		var accountid = "u0001";
 		var onboardInfo = {
 				"accountid" : "u0001",
 				"accountname" : "n1",
@@ -35,6 +36,9 @@
 		var winWidth = window.innerWidth;
 		var CTX_PATH = '<%=request.getContextPath()%>';
 	</script>
+	<%
+	session.setAttribute("userId", "u0001"); //将str 添加到session对象中
+  %>
 	<style type="text/css">
 		input {
 			-webkit-appearance: textfield;

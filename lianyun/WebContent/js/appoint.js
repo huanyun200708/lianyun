@@ -1,3 +1,5 @@
+var accountid = "u0001";
+var isConnectWsSuccess = false;
 $(document).ready(
 	function() {
 		var formHeight = parseInt($("fieldset").height());
@@ -16,6 +18,26 @@ $(document).ready(
 				if (data.success){
 					$("#accountname").val(data.account.name);
 					$("#phoneNum").val(data.account.phone);
+				}
+			},
+			complete : function(XHR, TS) {
+				XHR = null;
+			}
+		});
+		
+		$.ajax({
+			async : false,
+			cache : false,
+			type : "POST",
+			url: CTX_PATH + "/hq/isAdministator_userMg.do",
+			dataType : "json",
+			data : {
+				'accountId':'u0001'
+			},
+			success : function(data, textStatus, jqXHR) {
+				if (data.success && data.isAdministator){
+					alert("管理员")
+					connect();
 				}
 			},
 			complete : function(XHR, TS) {
@@ -44,7 +66,7 @@ function submitForm(){
 		dataType : "json",
 		data : {
 			'onboardInfo':JSON.stringify(onboardInfo),
-			'account':JSON.stringify(account),
+			'account':JSON.stringify(account)
 		},
 		success : function(data, textStatus, jqXHR) {
 			if (data.success){
@@ -59,3 +81,53 @@ function submitForm(){
 function clearForm(){
 	$('#ff').form('clear');
 }
+function connect() {
+	var host;
+	if (window.location.protocol == 'http:') {
+			host = 'ws://' + window.location.host + '/lianyun/forwardWebSocket?from='+accountid + "_" +new Date().getTime();
+		} else {
+			host = 'wss://' + window.location.host + '/lianyun/forwardWebSocket?from='+accountid + "_" +new Date().getTime();
+		}
+		if ('WebSocket' in window) {
+			ws = new WebSocket(host);
+		} else if ('MozWebSocket' in window) {
+			ws = new MozWebSocket(host);
+		} else {
+			return;
+		}
+		
+		ws.onopen = function() {
+			alert("连接成功")
+			isConnectWsSuccess = true;
+		};
+
+		ws.onclose = function() {
+			
+		};
+		
+		ws.onmessage = function(res) {
+			var messageInfo = JSON.parse(res.data);
+			var id = messageInfo.message.id;
+			$.ajax({
+				async : false,
+				cache : false,
+				type : "POST",
+				url: CTX_PATH + "/hq/deleteOnboardmesageById_onboard.do",
+				dataType : "json",
+				data : {
+					'id':id
+				},
+				success : function(data, textStatus, jqXHR) {
+					if (data.success){
+						alert(data.message)
+					}
+				},
+				complete : function(XHR, TS) {
+					XHR = null;
+				}
+			});
+			//收到消息后做出处理的方法
+			//handleMsg(JSON.parse(message.data));
+			//alert(JSON.parse(message.data).name + " 在 " +  JSON.parse(message.data).address+ " 等待上车");
+		};
+	}

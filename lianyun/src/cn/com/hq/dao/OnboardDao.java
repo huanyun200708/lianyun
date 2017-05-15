@@ -3,6 +3,7 @@ package cn.com.hq.dao;
 import java.util.List;
 
 import cn.com.hq.entity.OnboardInfo;
+import cn.com.hq.entity.Onboardmesage;
 import cn.com.hq.vo.OnboardInfoVO;
 
 public interface OnboardDao {
@@ -11,4 +12,8 @@ public interface OnboardDao {
 	public List<OnboardInfoVO> queryAllOnboardInfo(String infoid);
 
 	public int modifyOnboardInfo(OnboardInfo b);
+
+	public void addOnboardmessage(Onboardmesage onboardmesage);
+
+	public void deleteOnboardmesageById(String id);
 }

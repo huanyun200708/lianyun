@@ -26,6 +26,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/EasyUI/jquery.easyui.min.js"></script>
 	<script type="text/javascript">
 		var name = "${myname}";
+		var accountid = "u0001";
 		var onboardInfo = {
 				"accountid" : "u0001",
 				"accountname" : "n1",

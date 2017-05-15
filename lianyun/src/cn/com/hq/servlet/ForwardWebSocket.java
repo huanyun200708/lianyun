@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.http.HttpSession;
@@ -23,7 +24,7 @@ public class ForwardWebSocket {
     private static final Map<String,Object> connections = new HashMap<String,Object>();
     private static final Map<String,HttpSession> sessionMap = new HashMap<String,HttpSession>();
     
-    private final String nickname;
+    private  String nickname;
     private Session session;
     public ForwardWebSocket() {
         nickname = GUEST_PREFIX + connectionIds.getAndIncrement();
@@ -33,21 +34,21 @@ public class ForwardWebSocket {
     @OnOpen
     public void start(Session session,EndpointConfig config) {
         this.session = session;
-        String message = String.format("* %s %s", nickname, "has joined.");
-        
+        nickname = session.getRequestParameterMap().get("from").get(0).toString();
         HttpSession httpSession= (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
         String userId = httpSession.getAttribute("userId").toString();
-        connections.put(userId, this);
-        sessionMap.put(session.getId(), httpSession);
+        connections.put(nickname, this);
+        //sessionMap.put(session.getId(), httpSession);
+        String message = String.format("* %s %s", nickname, "has joined.");
+        System.out.println(message);
     }
 
 
     @OnClose
     public void end() {
         connections.remove(this.nickname);
-        String message = String.format("* %s %s",
-                nickname, "has disconnected.");
-        broadcast(message);
+        String message = String.format("* %s %s",nickname, "has disconnected.");
+        System.out.println(message);
     }
 
 
@@ -113,21 +114,26 @@ public class ForwardWebSocket {
      */
     public static void sendUser(String userId ,String msg){
     	System.out.println("-----------start send massage to "+userId+"------------");
-    	ForwardWebSocket c = (ForwardWebSocket)connections.get(userId);
-		try {
-			if(c != null){
-				c.session.getBasicRemote().sendText(msg);
-				System.out.println("-----------end send massage to "+userId+"------------");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-            connections.remove(c);
-            try {
-                c.session.close();
-            } catch (Exception e1) {
-            	e1.printStackTrace();
-                // Ignore
-            }
-		} 
+    	for(Entry<String, Object> entry: connections.entrySet()){
+    		if(entry.getKey().startsWith(userId+"_")){
+    			ForwardWebSocket c = (ForwardWebSocket)entry.getValue();
+    			try {
+    				if(c != null){
+    					c.session.getBasicRemote().sendText(msg);
+    					System.out.println("-----------end send massage to "+userId+"------------");
+    				}
+    			} catch (Exception e) {
+    				e.printStackTrace();
+    	            connections.remove(c);
+    	            try {
+    	                c.session.close();
+    	            } catch (Exception e1) {
+    	            	e1.printStackTrace();
+    	                // Ignore
+    	            }
+    			} 
+    		}
+    	}
+		
     }
 }

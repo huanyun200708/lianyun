@@ -12,6 +12,7 @@ import cn.com.hq.dao.Dao;
 import cn.com.hq.dao.OnboardDao;
 import cn.com.hq.entity.Account;
 import cn.com.hq.entity.OnboardInfo;
+import cn.com.hq.entity.Onboardmesage;
 import cn.com.hq.util.PropertiesUtils;
 import cn.com.hq.util.StringUtil;
 import cn.com.hq.vo.OnboardInfoVO;
@@ -121,7 +122,6 @@ public class OnboardDaoImpl implements OnboardDao {
 			sql = sql.replaceAll("huangqidb\\.", "");
 		}
 		PreparedStatement  ps;
-		boolean result = false;
 		try {
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, b.getAccountid());
@@ -138,6 +138,56 @@ public class OnboardDaoImpl implements OnboardDao {
 			e.printStackTrace();
 		}
 		return resultCount;
+	}
+
+	@Override
+	public void addOnboardmessage(Onboardmesage onboardmesage) {
+		//INSERT INTO huangqidb.onboardinfo VALUES ('ob002', 'u001', '00:00:00', 'JN');
+		String sql = "INSERT INTO  huangqidb.onboardmessage "
+				+ "(id,accountname,accountphone,appointtime,onboardtime,onboardaddress,appointstatus,onboardstatus) "
+				+ "VALUES (?,?,?,?,?,?,?,?)";
+		Connection connection =  dao.getDBConnection();
+		if(dao.dbFlag.equals("Common")){
+			sql = sql.replaceAll("huangqidb\\.", "");
+		}
+		PreparedStatement  ps;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, onboardmesage.getId());
+			ps.setString(2, onboardmesage.getAccountname());
+			ps.setString(3, onboardmesage.getAccountphone());
+			ps.setString(4, onboardmesage.getAppointtime());
+			ps.setString(5, onboardmesage.getOnboardtime());
+			ps.setString(6, onboardmesage.getOnboardaddress());
+			ps.setString(7, onboardmesage.getAppointstatus());
+			ps.setString(8, onboardmesage.getOnboardstatus());
+			ps.executeUpdate();
+			dao.closeStatement(ps);
+			Dao.releaseConnection(connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteOnboardmesageById(String id) {
+		String sql = "delete from  huangqidb.onboardmessage "
+				+ "where id= ? ";
+		Connection connection =  dao.getDBConnection();
+		if(dao.dbFlag.equals("Common")){
+			sql = sql.replaceAll("huangqidb\\.", "");
+		}
+		PreparedStatement  ps;
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.executeUpdate();
+			dao.closeStatement(ps);
+			Dao.releaseConnection(connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

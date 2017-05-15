@@ -55,5 +55,18 @@ public class UserManageAction extends BaseAction {
 			}
 		}
 	}
+	
+	public void isAdministator(){
+		String accountId = reguest.getParameter("accountId");
+		if(!StringUtil.isEmpty(accountId)){
+			//如果用户不存在，则添加新用户
+			List<String> authorityList = userService.queryAuthorityById(accountId);
+			if(authorityList.contains("01")){
+				responseWriter("{\"success\":true,\"isAdministator\":true}");
+			}else{
+				responseWriter("{\"success\":true,\"isAdministator\":false}");
+			}
+		}
+	}
 
 }
